@@ -1,13 +1,40 @@
 const vm = Vue.createApp({ //store in the variable
     data(){
         return {
-            firstName: '',
-            lastName: ''
+            firstName: 'Ray',
+            middleName: '',
+            lastName: '',
+            url: 'https://google.com',
+            age: ''
         }
     },
     methods: {
+        increment() {
+            this.age++ 
+        },
+        updateLastName(msg, event){
+            // event.preventDefault(); <- handled by event modifier @input.prevent
+            // console.log(msg);
+            // console.log(event.target.value)
+            this.lastName = event.target.value
+        },
+        greet(){
+            alert(`Hi ${this.fullName()}! Nice meeting you! You are now ${this.age} year's old`)
+        },
+        updateMiddleName(event){
+            this.middleName = event.target.value
+        }
+    },
+    computed: {
         fullName(){
-            return `${this.firstName} ${this.lastName.toUpperCase()}`
+            return `${this.firstName} ${this.middleName} ${this.lastName.toUpperCase()}`
+        },
+    },
+    watch: {
+        age(newVal, oldVal){
+            setTimeout(() => {
+                this.age = 20
+            }, 3000)
         }
     }
 }).mount('#app')
